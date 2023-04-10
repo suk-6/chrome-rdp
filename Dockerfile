@@ -1,11 +1,12 @@
 FROM ubuntu:16.04
-MAINTAINER SFoxDev <admin@sfoxdev.com>
+LABEL Maintainer="https://suk.kr"
+LABEL Forked="sfoxdev"
 
 ENV VNC_PASSWORD="" \
 		DEBIAN_FRONTEND="noninteractive" \
     LC_ALL="C.UTF-8" \
-    LANG="en_US.UTF-8" \
-    LANGUAGE="en_US.UTF-8"
+    LANG="ko_KR.UTF-8" \
+    LANGUAGE="ko_KR.UTF-8"
 
 ADD https://dl.google.com/linux/linux_signing_key.pub /tmp/
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list ; \
@@ -41,6 +42,11 @@ RUN addgroup chrome-remote-desktop ; \
 		session.screen0.defaultDeco:    NONE\n\
 		' >> /home/chrome/.fluxbox/init ; \
 		chown -R chrome:chrome /home/chrome/.config /home/chrome/.fluxbox
+		
+RUN wget -P /tmp/ http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip ; \
+		unzip /tmp/NanumFont_TTF_ALL.zip -d /tmp/NanumFont ; \
+		mv /tmp/NanumFont /usr/share/fonts/ ; \
+		fc-cache -f -v
 
 ADD conf/ /
 
