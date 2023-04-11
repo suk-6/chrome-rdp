@@ -12,10 +12,11 @@ ADD https://dl.google.com/linux/linux_signing_key.pub /tmp/
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list ; \
 	echo "deb http://dl.google.com/linux/chrome-remote-desktop/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list ; \
 	apt-key add /tmp/linux_signing_key.pub ; \
-	apt-get update ; \
-	apt-get install -y \
+	apt update ; \
+	apt install -y \
 	google-chrome-stable \
-	chrome-remote-desktop \
+	chrome-remote-desktop ; \
+	apt install -y \
 	fonts-takao \
 	pulseaudio \
 	supervisor \
@@ -23,10 +24,7 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/so
 	fluxbox \
 	mc \
 	xfce4 \
-	xrdp ; \
-	apt-get clean ; \
-	apt update ; \
-	apt install -y \
+	xrdp \
 	wget \
 	unzip \
 	fontconfig ; \
@@ -54,7 +52,7 @@ RUN wget -P /tmp/ http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_A
 	mv /tmp/NanumFont /usr/share/fonts/ ; \
 	fc-cache -f -v
 
-ADD conf/ /
+ADD ./conf/ /
 
 VOLUME ["/home/chrome"]
 
